@@ -18,8 +18,8 @@
 /*eslint-disable*/
 import React, { Component } from "react";
 
-function FixedPlugin(props) {
-  const [classes, setClasses] = React.useState("dropdown show");
+function Settings(props) {
+  const [classes, setClasses] = React.useState("dropdown");
   const handleClick = () => {
     if (classes === "dropdown") {
       setClasses("dropdown show");
@@ -112,14 +112,14 @@ function FixedPlugin(props) {
               target="_blank"
               className="btn btn-primary btn-block btn-round"
             >
-              Buy pro
+              Donate
             </a>
             <a
               href="https://www.creative-tim.com/product/now-ui-dashboard-react?ref=nudr-fixed-plugin"
               target="_blank"
               className="btn btn-warning btn-block btn-round"
             >
-              Download free
+              Watch AD
             </a>
             <a
               href="https://demos.creative-tim.com/now-ui-dashboard-react/#/documentation/tutorial?ref=nudr-fixed-plugin"
@@ -134,4 +134,4 @@ function FixedPlugin(props) {
   );
 }
 
-export default FixedPlugin;
+export default Settings;

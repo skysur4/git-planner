@@ -3,7 +3,7 @@
   "version": "1.5.0",
   "main": "dist/index.js",
   "private": true,
-  "homepage": "https://demos.creative-tim.com/now-ui-dashboard-react/#/",
+  "homepage": "https://skysur4.github.io/git-planner/",
   "dependencies": {
     "bootstrap": "4.6.0",
     "chart.js": "3.2.1",

@@ -73,10 +73,10 @@ $danger-states-color:        lighten($danger-color, 6%) !default;
 $danger-color-opacity:       rgba(255, 54, 54, .3) !default;
 $danger-color-alert:         rgba(255, 54, 54, .8) !default;
 
-$smoky-color:               #000000 !default;
-$smoky-states-color:        lighten($danger-color, 6%) !default;
-$smoky-color-opacity:       rgba(0, 0, 0, .3) !default;
-$smoky-color-alert:         rgba(0, 0, 0, .8) !default;
+$inverse-color:               #000000 !default;
+$inverse-states-color:        lighten($inverse-color, 6%) !default;
+$inverse-color-opacity:       rgba(0, 0, 0, .3) !default;
+$inverse-color-alert:         rgba(0, 0, 0, .8) !default;
 
 $orange-color:               #f96332 !default;
 
@@ -86,8 +86,7 @@ $brand-info:                 $info-color !default;
 $brand-success:              $success-color !default;
 $brand-warning:              $warning-color !default;
 $brand-danger:               $danger-color !default;
-$brand-smoky:                $smoky-color !default;
-$brand-inverse:              $black-color !default;
+$brand-inverse:              $inverse-color !default;
 
 $link-disabled-color:        #666666 !default;
 

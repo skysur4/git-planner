@@ -4,7 +4,7 @@ const gap = require("gulp-append-prepend");
 gulp.task("licenses", async function () {
   // this is to add Creative Tim licenses in the production mode for the minified js
   gulp
-    .src("build/static/js/*chunk.js", { base: "./" })
+    .src("docs/static/js/*chunk.js", { base: "./" })
     .pipe(
       gap.prependText(`/*!
 
@@ -27,7 +27,7 @@ gulp.task("licenses", async function () {
 
   // this is to add Creative Tim licenses in the production mode for the minified js
   gulp
-    .src("build/static/js/runtime*.js", { base: "./" })
+    .src("docs/static/js/runtime*.js", { base: "./" })
     .pipe(
       gap.prependText(`/*!
 
@@ -50,7 +50,7 @@ gulp.task("licenses", async function () {
 
   // this is to add Creative Tim licenses in the production mode for the minified html
   gulp
-    .src("build/index.html", { base: "./" })
+    .src("docs/index.html", { base: "./" })
     .pipe(
       gap.prependText(`<!--
 
@@ -73,7 +73,7 @@ gulp.task("licenses", async function () {
 
   // this is to add Creative Tim licenses in the production mode for the minified css
   gulp
-    .src("build/static/css/*chunk.css", { base: "./" })
+    .src("docs/static/css/*chunk.css", { base: "./" })
     .pipe(
       gap.prependText(`/*!
 

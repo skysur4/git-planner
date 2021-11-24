@@ -15,22 +15,3 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-
-import "bootstrap/dist/css/bootstrap.css";
-import "assets/scss/now-ui-dashboard.scss?v1.5.0";
-import "assets/css/git-planner.css";
-
-import PlannerLayout from "layouts/Planner.js";
-
-ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/" render={(props) => <PlannerLayout {...props} />} />
-      <Redirect to="/dashboard" />
-    </Switch>
-  </BrowserRouter>,
-  document.getElementById("root")
-);

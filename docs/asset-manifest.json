@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/git-planner/static/css/main.9d933836.chunk.css",
+    "main.js": "/git-planner/static/js/main.4f757f2f.chunk.js",
+    "main.js.map": "/git-planner/static/js/main.4f757f2f.chunk.js.map",
+    "runtime-main.js": "/git-planner/static/js/runtime-main.0c9a5d64.js",
+    "runtime-main.js.map": "/git-planner/static/js/runtime-main.0c9a5d64.js.map",
+    "static/css/2.6e86b593.chunk.css": "/git-planner/static/css/2.6e86b593.chunk.css",
+    "static/js/2.502783d5.chunk.js": "/git-planner/static/js/2.502783d5.chunk.js",
+    "static/js/2.502783d5.chunk.js.map": "/git-planner/static/js/2.502783d5.chunk.js.map",
+    "index.html": "/git-planner/index.html",
+    "static/css/2.6e86b593.chunk.css.map": "/git-planner/static/css/2.6e86b593.chunk.css.map",
+    "static/css/main.9d933836.chunk.css.map": "/git-planner/static/css/main.9d933836.chunk.css.map",
+    "static/js/2.502783d5.chunk.js.LICENSE.txt": "/git-planner/static/js/2.502783d5.chunk.js.LICENSE.txt",
+    "static/js/main.4f757f2f.chunk.js.LICENSE.txt": "/git-planner/static/js/main.4f757f2f.chunk.js.LICENSE.txt",
+    "static/media/bg5.jpg": "/git-planner/static/media/bg5.d60a95eb.jpg",
+    "static/media/logo-white.2f89e135.svg": "/git-planner/static/media/logo-white.2f89e135.svg",
+    "static/media/mike.jpg": "/git-planner/static/media/mike.d34d0690.jpg",
+    "static/media/now-ui-dashboard.scss?v1.5.0": "/git-planner/static/media/nucleo-outline.802141dd.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0c9a5d64.js",
+    "static/css/2.6e86b593.chunk.css",
+    "static/js/2.502783d5.chunk.js",
+    "static/css/main.9d933836.chunk.css",
+    "static/js/main.4f757f2f.chunk.js"
+  ]
+}
