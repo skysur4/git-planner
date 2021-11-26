@@ -71,15 +71,12 @@ function Navigation(props) {
           return null;
         });
       } else {
-        if (prop.redirect) {
-          if (prop.path === props.location.pathname) {
-            name = prop.name;
+          if (prop.redirect) {
           }
-        } else {
+
           if (prop.path === props.location.pathname || prop.layout + prop.path === props.location.pathname) {
             name = prop.name;
           }
-        }
       }
       return null;
     });

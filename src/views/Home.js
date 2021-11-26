@@ -17,6 +17,10 @@
 */
 import React from "react";
 
+// prepare SunEditor
+import SunEditor,{buttonList} from "suneditor-react";
+import "suneditor/dist/css/suneditor.min.css";
+
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
@@ -25,43 +29,51 @@ class Home extends React.Component {
 	constructor(props){
 		super(props);
 
-		this.state = {loginStatus:false};
+		this.state = {model:{}};
+
+		this.handleEditorChange = this.handleEditorChange.bind(this);
 	}
+
+	handleEditorChange(content){
+	};
 
 	componentDidMount(){
 	}
 
 	render() {
 		return (
-    <>
-      <PanelHeader size="sm" />
-      <div className="content">
-	        <ul className="dropdown-menu show">
-	          <li className="button-container">
-	            <a
-	              href="https://www.creative-tim.com/product/now-ui-dashboard-pro-react?ref=nudr-fixed-plugin"
-	              target="_blank"
-	              className="btn btn-primary btn-block btn-round"
-	            >
-	              Buy pro
-	            </a>
-	            <a
-	              href="https://www.creative-tim.com/product/now-ui-dashboard-react?ref=nudr-fixed-plugin"
-	              target="_blank"
-	              className="btn btn-warning btn-block btn-round"
-	            >
-	              Download free
-	            </a>
-	            <a
-	              href="https://demos.creative-tim.com/now-ui-dashboard-react/#/documentation/tutorial?ref=nudr-fixed-plugin"
-	              className="btn btn-block btn-round btn-info"
-	            >
-	              Documentation
-	            </a>
-	          </li>
-	        </ul>
-      </div>
-    </>
+		    <>
+		      <PanelHeader size="sm" />
+		      <div className="content">
+			      <SunEditor
+			        // setContents="My contents"
+			        lang="ko"
+			        showToolbar={true}
+			        onChange={this.handleEditorChange}
+			        setDefaultStyle="height: auto"
+			        placeholder="머선 12GO!"
+			        setOptions={{
+						//buttonList: buttonList.basic
+						//buttonList: buttonList.formatting
+						//buttonList: buttonList.complex
+			          buttonList: [ //=buttonList.complex
+						  ["undo", "redo"],
+						  ["font", "fontSize", "formatBlock"],
+						  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
+						  ["removeFormat"],
+						  ["fontColor", "hiliteColor"],
+						  ["outdent", "indent"],
+						  ["align", "horizontalRule", "list", "table"],
+						  ["link", "image", "video"],
+						  //["fullScreen", "showBlocks", "codeView"],
+						  //["preview", "print"],
+						  //["save", "template"],
+						]
+			        }}
+			      />
+		      </div>
+		      <img src="http://placekitten.com/200/300" />
+		    </>
 		)
 	}
 }

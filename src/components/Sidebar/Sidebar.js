@@ -49,7 +49,7 @@ function Sidebar(props) {
     <div className="sidebar" data-color={props.backgroundColor}>
       <div className="logo">
         <a
-          href="/"
+          href={process.env.REACT_APP_WEB_ROOT}
           className="simple-text logo-mini"
         >
           <div className="logo-img">
@@ -57,7 +57,7 @@ function Sidebar(props) {
           </div>
         </a>
         <a
-          href="/"
+          href={process.env.REACT_APP_WEB_ROOT}
           className="simple-text logo-normal"
         >
           GIT PLANNER
