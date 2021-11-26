@@ -71,3 +71,9 @@
     opacity: 1;
     color: #FFFFFF;
 }
+
+img.mini-avatar {
+	border-radius: 1rem;
+	height: 2.5vh;
+	width: auto;
+}

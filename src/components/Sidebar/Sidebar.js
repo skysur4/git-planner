@@ -49,7 +49,7 @@ function Sidebar(props) {
     <div className="sidebar" data-color={props.backgroundColor}>
       <div className="logo">
         <a
-          href="/main"
+          href="/"
           className="simple-text logo-mini"
         >
           <div className="logo-img">
@@ -57,7 +57,7 @@ function Sidebar(props) {
           </div>
         </a>
         <a
-          href="/main"
+          href="/"
           className="simple-text logo-normal"
         >
           GIT PLANNER
@@ -67,7 +67,7 @@ function Sidebar(props) {
         <Nav>
           {props.routes.map((prop, key) => {
             if (prop.redirect) return null;
-            if (prop.layout=="/common") return null;
+            if (prop.layout== process.env.REACT_APP_WEB_ROOT + "/common") return null;
 
             return (
               <li

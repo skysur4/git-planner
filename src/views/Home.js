@@ -17,24 +17,22 @@
 */
 import React from "react";
 
-// reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Row,
-  Col,
-} from "reactstrap";
-
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
-function Settings() {
-  return (
+class Home extends React.Component {
+
+	constructor(props){
+		super(props);
+
+		this.state = {loginStatus:false};
+	}
+
+	componentDidMount(){
+	}
+
+	render() {
+		return (
     <>
       <PanelHeader size="sm" />
       <div className="content">
@@ -64,7 +62,8 @@ function Settings() {
 	        </ul>
       </div>
     </>
-  );
+		)
+	}
 }
 
-export default Settings;
+export default Home;

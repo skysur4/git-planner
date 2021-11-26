@@ -35,6 +35,10 @@ import {
   Input,
 } from "reactstrap";
 
+import axios from 'axios';
+import auths from "utils/auths";
+import github from "variables/github";
+
 import routes from "routes.js";
 
 function Navigation(props) {
@@ -43,6 +47,8 @@ function Navigation(props) {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [color, setColor] = React.useState("transparent");
   const sidebarToggle = React.useRef();
+  const [user, setUser] = React.useState({});
+
   const toggle = () => {
     if (isOpen) {
       setColor("transparent");
@@ -91,8 +97,29 @@ function Navigation(props) {
       setColor("transparent");
     }
   };
+
+  const logout = () => {
+	auths.setAuthToken("");
+	window.location.replace(webRoot);
+  }
+
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
+
+	const token = auths.getAuthToken();
+	if(!!token){
+		//TODO validate access token + load user profile
+	    axios.get(
+			github.api.profile,
+			github.header(token)
+	    ).then(res => {
+			if(res.status === 200 && !!res.data && !!res.data.login){
+				setUser(res.data);
+			}
+		}).catch(err => {
+			alert("사용자 정보 조회 증 오류 발생: [" + err +"]");
+		});
+	}
   }, []);
   React.useEffect(() => {
     if (
@@ -160,7 +187,15 @@ function Navigation(props) {
                 </p>
               </Link>
             </NavItem>
-            {props.loggedIn &&
+            <NavItem>
+              <Link to={process.env.REACT_APP_WEB_ROOT + "/common/settings"} className="nav-link">
+                <i className="now-ui-icons ui-1_settings-gear-63" />
+                <p>
+                  <span className="d-lg-none d-md-block">Settings</span>
+                </p>
+              </Link>
+            </NavItem>
+            {user.login &&
             <Dropdown
               nav
               isOpen={dropdownOpen}
@@ -173,14 +208,17 @@ function Navigation(props) {
                 </p>
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem tag="a" href="/common/user-page">Account Info</DropdownItem>
-                <DropdownItem tag="a" href="/common/logout">Logout</DropdownItem>
+                <DropdownItem tag="span">
+                	<img src={user.avatar_url} className="mini-avatar" />&nbsp;
+                	{user.login}
+                </DropdownItem>
+                <DropdownItem tag="button" onClick={() => logout()}>Logout</DropdownItem>
               </DropdownMenu>
             </Dropdown>
             }
-            {!props.loggedIn &&
+            {!user.login &&
             <NavItem>
-              <Link to="/common/login" className="nav-link">
+              <Link to={process.env.REACT_APP_WEB_ROOT + "/common/login"} className="nav-link">
                 <i className="now-ui-icons users_circle-08" />
                 <p>
                   <span className="d-lg-none d-md-block">Login</span>
@@ -188,14 +226,6 @@ function Navigation(props) {
               </Link>
             </NavItem>
 			}
-            <NavItem>
-              <Link to="/common/settings" className="nav-link">
-                <i className="now-ui-icons ui-1_settings-gear-63" />
-                <p>
-                  <span className="d-lg-none d-md-block">Settings</span>
-                </p>
-              </Link>
-            </NavItem>
           </Nav>
         </Collapse>
       </Container>

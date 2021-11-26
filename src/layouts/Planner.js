@@ -27,6 +27,7 @@ import Navigation from "components/Navbars/Navigation.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import Settings from "components/FixedPlugin/Settings.js";
+import settings from "utils/settings";
 
 import routes from "routes.js";
 
@@ -34,7 +35,7 @@ var ps;
 
 function Planner(props) {
   const location = useLocation();
-  const [backgroundColor, setBackgroundColor] = React.useState("black");
+  const [backgroundColor, setBackgroundColor] = React.useState(settings.getThemeColor());
   const mainPanel = React.useRef();
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
@@ -54,6 +55,7 @@ function Planner(props) {
     mainPanel.current.scrollTop = 0;
   }, [location]);
   const handleColorClick = (color) => {
+	settings.setThemeColor(color);
     setBackgroundColor(color);
   };
   return (
@@ -71,6 +73,7 @@ function Planner(props) {
               />
             );
           })}
+          <Redirect from={process.env.REACT_APP_WEB_ROOT} to={process.env.REACT_APP_WEB_ROOT + "/home"} />
         </Switch>
         <Footer fluid />
       </div>

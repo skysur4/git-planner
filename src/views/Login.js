@@ -39,27 +39,24 @@ class Login extends React.Component {
 			const code = params.code;
 			const state = params.state;
 			var sentStatus = auths.getAuthState();
-
 			if(sentStatus == state){
 			    axios.post(github.authroization, {code: code}
 			    ).then(res => {
-					console.log(res.data);
-					auths.setAuthToken(res.data.access_token)
+					auths.setAuthToken(res.data.access_token);
+					window.location.replace("/");
 				}).catch(err => {
-					console.log(err);
+					alert("인증 증 오류 발생: [" + err +"]");
 				});
 
 			}else{
-				alert("CSRF expected...");
+				alert("잘못된 접근입니다. 다시 시도해 주세요.");
 				window.location.replace("/");
 			}
-
-		} else if(!!params && !!params.access_token){
-			debugger;
-
+		}else if(!!params && !!params.error){
+			alert("잘못된 접근입니다. 다시 시도해 주세요.");
+			window.location.replace("/");
 		}else{
 			const token = auths.getAuthToken();
-
 			if(!token){
 				const state = auths.createStateCode();
 				auths.setAuthState(state);
@@ -70,7 +67,8 @@ class Login extends React.Component {
 					"&scope=" + escape(github.scope) +
 					"&state=" + state);
 			}else{
-				this.setState({loginStatus:true});
+				debugger;
+				window.location.replace("/");
 			}
 		}
 	}
@@ -80,7 +78,7 @@ class Login extends React.Component {
 		<>
 			<PanelHeader size="sm" />
 			<div className="content">
-			123
+				{/*TODO progress*/} <br/><br/><br/><br/><br/><br/><br/><br/><br/>로그인 중입니다...
 			</div>
 		</>
 		);

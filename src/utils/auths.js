@@ -1,5 +1,4 @@
 function setAuthState(state){
-	debugger;
 	return window.localStorage.setItem("state", state);
 }
 
@@ -9,7 +8,6 @@ function getAuthState(){
 }
 
 function setAuthToken(token){
-	debugger;
 	return window.localStorage.setItem("token", token);
 }
 

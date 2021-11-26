@@ -16,7 +16,7 @@
 
 */
 import Login from "views/Login.js";
-import Main from "views/Main.js";
+import Home from "views/Home.js";
 import Dashboard from "views/Dashboard.js";
 import Notifications from "views/Notifications.js";
 import Icons from "views/Icons.js";
@@ -29,53 +29,54 @@ import Settings from "views/Settings.js";
 
 var dashRoutes = [
   {
-    path: "/main",
+	redirect: true,
+    path: "/home",
     name: "Home",
     icon: "education_agenda-bookmark",
-    component: Main,
-    layout: "",
+    component: Home,
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     path: "/dashboard",
     name: "Dashboard",
     icon: "design_app",
     component: Dashboard,
-    layout: "",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     path: "/icons",
     name: "Icons",
     icon: "design_image",
     component: Icons,
-    layout: "",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     path: "/maps",
     name: "Maps",
     icon: "location_map-big",
     component: Maps,
-    layout: "",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     path: "/notifications",
     name: "Notifications",
     icon: "ui-1_bell-53",
     component: Notifications,
-    layout: "",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     path: "/extended-tables",
     name: "Table List",
     icon: "files_paper",
     component: TableList,
-    layout: "",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     path: "/typography",
     name: "Typography",
     icon: "design-2_ruler-pencil",
     component: Typography,
-    layout: "",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     pro: true,
@@ -83,7 +84,7 @@ var dashRoutes = [
     name: "Upgrade to PRO",
     icon: "objects_spaceship",
     component: Upgrade,
-    layout: "",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
 
   {
@@ -91,28 +92,28 @@ var dashRoutes = [
     name: "Login",
     icon: "education_agenda-bookmark",
     component: Login,
-    layout: "/common",
+    layout: process.env.REACT_APP_WEB_ROOT + "/common",
   },
   {
     path: "/user-page",
     name: "User Profile",
     icon: "users_single-02",
     component: UserPage,
-    layout: "/common",
+    layout: process.env.REACT_APP_WEB_ROOT + "/common",
   },
   {
     path: "/settings",
     name: "Settings",
     icon: "education_agenda-bookmark",
     component: Settings,
-    layout: "/common",
+    layout: process.env.REACT_APP_WEB_ROOT + "/common",
   },
   {
     path: "/logout",
     name: "Logout",
     icon: "education_agenda-bookmark",
     component: Login,
-    layout: "/common",
+    layout: process.env.REACT_APP_WEB_ROOT + "/common",
   },
 ];
 export default dashRoutes;

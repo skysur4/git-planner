@@ -28,8 +28,8 @@ import PlannerLayout from "layouts/Planner.js";
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/" render={(props) => <PlannerLayout {...props} />} />
-      <Redirect to="/dashboard" />
+      <Route path={process.env.REACT_APP_WEB_ROOT} render={(props) => <PlannerLayout {...props} />} />
+      <Redirect from="/" to={process.env.REACT_APP_WEB_ROOT} />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
