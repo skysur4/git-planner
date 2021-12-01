@@ -64,7 +64,7 @@ function Sidebar(props) {
           href={process.env.REACT_APP_WEB_ROOT}
           className="simple-text logo-normal"
         >
-          GIT PLANNER
+          {t('title')}
         </a>
       </div>
       <div className="sidebar-wrapper" ref={sidebar}>

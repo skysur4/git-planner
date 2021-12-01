@@ -18,6 +18,7 @@
 import Login from "views/Login.js";
 import Home from "views/Home.js";
 import Dashboard from "views/Dashboard.js";
+import Plan from "views/Plan.js";
 import Notifications from "views/Notifications.js";
 import Icons from "views/Icons.js";
 import Typography from "views/Typography.js";
@@ -31,7 +32,7 @@ var dashRoutes = [
   {
 	redirect: true,
     path: "/home",
-    name: "Home",
+    name: "home",
     icon: "education_agenda-bookmark",
     component: Home,
     layout: process.env.REACT_APP_WEB_ROOT,
@@ -44,36 +45,43 @@ var dashRoutes = [
     layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
+    path: "/plan",
+    name: "plan",
+    icon: "design-2_ruler-pencil",
+    component: Plan,
+    layout: process.env.REACT_APP_WEB_ROOT,
+  },
+  {
     path: "/icons",
-    name: "Icons",
+    name: "icons",
     icon: "design_image",
     component: Icons,
     layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     path: "/maps",
-    name: "Maps",
+    name: "maps",
     icon: "location_map-big",
     component: Maps,
     layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     path: "/notifications",
-    name: "Notifications",
+    name: "notifications",
     icon: "ui-1_bell-53",
     component: Notifications,
     layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     path: "/extended-tables",
-    name: "Table List",
+    name: "tablelist",
     icon: "files_paper",
     component: TableList,
     layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
     path: "/typography",
-    name: "Typography",
+    name: "typography",
     icon: "design-2_ruler-pencil",
     component: Typography,
     layout: process.env.REACT_APP_WEB_ROOT,
@@ -81,7 +89,7 @@ var dashRoutes = [
   {
     pro: true,
     path: "/upgrade",
-    name: "Upgrade to PRO",
+    name: "upgradepro",
     icon: "objects_spaceship",
     component: Upgrade,
     layout: process.env.REACT_APP_WEB_ROOT,
@@ -90,7 +98,7 @@ var dashRoutes = [
   {
 	invisible: true,
     path: "/login",
-    name: "Login",
+    name: "login",
     icon: "education_agenda-bookmark",
     component: Login,
     layout: process.env.REACT_APP_WEB_ROOT,
@@ -98,7 +106,7 @@ var dashRoutes = [
   {
 	invisible: true,
     path: "/user-page",
-    name: "User Profile",
+    name: "user-profile",
     icon: "users_single-02",
     component: UserPage,
     layout: process.env.REACT_APP_WEB_ROOT,
@@ -106,7 +114,7 @@ var dashRoutes = [
   {
 	invisible: true,
     path: "/settings",
-    name: "Settings",
+    name: "settings",
     icon: "education_agenda-bookmark",
     component: Settings,
     layout: process.env.REACT_APP_WEB_ROOT,
@@ -114,7 +122,7 @@ var dashRoutes = [
   {
 	invisible: true,
     path: "/logout",
-    name: "Logout",
+    name: "logout",
     icon: "education_agenda-bookmark",
     component: Login,
     layout: process.env.REACT_APP_WEB_ROOT,

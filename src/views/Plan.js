@@ -37,6 +37,7 @@ import {
   Label,
   FormGroup,
   Input,
+  InputGroup,
   Button
 } from "reactstrap";
 
@@ -85,13 +86,11 @@ function SunEditorCard(props){
 						  />
 				  </CardText>
 				  <CardText>
-						  <FormGroup className="mb-3">
-		                    <Label>
-		                      <Input type="text" id="inputTag" placeholder="태그" />
-		                    </Label>
-		                  </FormGroup>
+				      <InputGroup size="lg" className="mb-3">
+					    <Input id="basic-addon1" placeholder="태그" aria-autocomplete="both" />
+					  </InputGroup>
+					  <Button color="primary" >저장</Button>
 				  </CardText>
-                  <Button color="primary">저장</Button>
 		      </CardBody>
 		    </Card>
           </Col>
@@ -99,6 +98,7 @@ function SunEditorCard(props){
     	</>
   );
 }
+
 class Home extends React.Component {
 
 	constructor(props){
@@ -110,7 +110,6 @@ class Home extends React.Component {
 	}
 
 	handleEditorChange(content){
-		debugger;
 	};
 
 	componentDidMount(){

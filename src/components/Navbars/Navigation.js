@@ -35,6 +35,8 @@ import {
   Input,
 } from "reactstrap";
 
+import { useTranslation } from 'react-i18next';
+
 import auths from "utils/auths";
 import github from "variables/github";
 
@@ -47,6 +49,7 @@ function Navigation(props) {
   const [color, setColor] = React.useState("transparent");
   const sidebarToggle = React.useRef();
   const [user, setUser] = React.useState({});
+  const { t } = useTranslation();
 
   const toggle = () => {
     if (isOpen) {
@@ -65,7 +68,7 @@ function Navigation(props) {
       if (prop.collapse) {
         prop.views.map((prop, key) => {
           if (prop.path === props.location.pathname) {
-            name = prop.name;
+            name = t('sub-title.'+prop.name);
           }
           return null;
         });
@@ -74,7 +77,7 @@ function Navigation(props) {
           }
 
           if (prop.path === props.location.pathname || prop.layout + prop.path === props.location.pathname) {
-            name = prop.name;
+            name = t('sub-title.'+prop.name);
           }
       }
       return null;

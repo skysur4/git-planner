@@ -20,8 +20,9 @@ import React from "react";
 import settings from "utils/settings";
 import { list } from "variables/themes";
 import locales from "variables/locales";
-import { useTranslation } from 'react-i18next';
+
 import i18n from "utils/i18n";
+import { useTranslation } from 'react-i18next';
 
 // reactstrap components
 import {
@@ -44,6 +45,7 @@ function Settings(props) {
   const bgColor = settings.getThemeColor();
   const { t } = useTranslation();
   const currentLang = i18n.language;
+
   const changeLanguage = (e) => {
 	const lang = e.target.value;
 	window.localStorage.setItem("locale", lang);
