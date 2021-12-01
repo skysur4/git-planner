@@ -16,14 +16,46 @@
 
 */
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 // prepare SunEditor
-import SunEditor,{buttonList} from "suneditor-react";
+import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
+function SunEditorPrepare(props){
+  const { t } = useTranslation();
+
+
+  return <SunEditor
+    // setContents="My contents"
+    lang="ko"
+    showToolbar={true}
+    onChange={props.onchange}
+    setDefaultStyle="height: auto"
+    placeholder={t('editor.placeholer')}
+    setOptions={{
+		//buttonList: buttonList.basic
+		//buttonList: buttonList.formatting
+		//buttonList: buttonList.complex
+      buttonList: [ //=buttonList.complex
+		  ["undo", "redo"],
+		  ["font", "fontSize", "formatBlock"],
+		  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
+		  ["removeFormat"],
+		  ["fontColor", "hiliteColor"],
+		  ["outdent", "indent"],
+		  ["align", "horizontalRule", "list", "table"],
+		  ["link", "image", "video"],
+		  //["fullScreen", "showBlocks", "codeView"],
+		  //["preview", "print"],
+		  //["save", "template"],
+		]
+    }}
+  />
+}
 class Home extends React.Component {
 
 	constructor(props){
@@ -35,42 +67,20 @@ class Home extends React.Component {
 	}
 
 	handleEditorChange(content){
+		debugger;
 	};
 
 	componentDidMount(){
+
 	}
 
 	render() {
+
 		return (
 		    <>
 		      <PanelHeader size="sm" />
 		      <div className="content">
-			      <SunEditor
-			        // setContents="My contents"
-			        lang="ko"
-			        showToolbar={true}
-			        onChange={this.handleEditorChange}
-			        setDefaultStyle="height: auto"
-			        placeholder="머선 12GO!"
-			        setOptions={{
-						//buttonList: buttonList.basic
-						//buttonList: buttonList.formatting
-						//buttonList: buttonList.complex
-			          buttonList: [ //=buttonList.complex
-						  ["undo", "redo"],
-						  ["font", "fontSize", "formatBlock"],
-						  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
-						  ["removeFormat"],
-						  ["fontColor", "hiliteColor"],
-						  ["outdent", "indent"],
-						  ["align", "horizontalRule", "list", "table"],
-						  ["link", "image", "video"],
-						  //["fullScreen", "showBlocks", "codeView"],
-						  //["preview", "print"],
-						  //["save", "template"],
-						]
-			        }}
-			      />
+				<SunEditorPrepare onchange={this.handleEditorChange} />
 		      </div>
 		      <img src="http://placekitten.com/200/300" />
 		    </>

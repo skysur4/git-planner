@@ -38,7 +38,7 @@ var dashRoutes = [
   },
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "dashboard",
     icon: "design_app",
     component: Dashboard,
     layout: process.env.REACT_APP_WEB_ROOT,
@@ -88,32 +88,36 @@ var dashRoutes = [
   },
 
   {
+	invisible: true,
     path: "/login",
     name: "Login",
     icon: "education_agenda-bookmark",
     component: Login,
-    layout: process.env.REACT_APP_WEB_ROOT + "/common",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
+	invisible: true,
     path: "/user-page",
     name: "User Profile",
     icon: "users_single-02",
     component: UserPage,
-    layout: process.env.REACT_APP_WEB_ROOT + "/common",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
+	invisible: true,
     path: "/settings",
     name: "Settings",
     icon: "education_agenda-bookmark",
     component: Settings,
-    layout: process.env.REACT_APP_WEB_ROOT + "/common",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
   {
+	invisible: true,
     path: "/logout",
     name: "Logout",
     icon: "education_agenda-bookmark",
     component: Login,
-    layout: process.env.REACT_APP_WEB_ROOT + "/common",
+    layout: process.env.REACT_APP_WEB_ROOT,
   },
 ];
 export default dashRoutes;

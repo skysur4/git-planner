@@ -35,7 +35,6 @@ import {
   Input,
 } from "reactstrap";
 
-import axios from 'axios';
 import auths from "utils/auths";
 import github from "variables/github";
 
@@ -102,19 +101,18 @@ function Navigation(props) {
 
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
-
 	const token = auths.getAuthToken();
 	if(!!token){
-		//TODO validate access token + load user profile
-	    axios.get(
-			github.api.profile,
-			github.header(token)
-	    ).then(res => {
-			if(res.status === 200 && !!res.data && !!res.data.login){
-				setUser(res.data);
+	    fetch(github.api.profile,
+			{
+				method: "GET",
+				headers: github.header(token),
 			}
+		).then(res => res.json()
+		).then(data => {
+			setUser(data);
 		}).catch(err => {
-			alert("사용자 정보 조회 증 오류 발생: [" + err +"]");
+			alert("사용자 정보 조회 증 오류 발생: [{0}]", err);
 		});
 	}
   }, []);
@@ -185,8 +183,16 @@ function Navigation(props) {
               </Link>
             </NavItem>
             <NavItem>
-              <Link to={process.env.REACT_APP_WEB_ROOT + "/common/settings"} className="nav-link">
-                <i className="now-ui-icons ui-1_settings-gear-63" />
+              <Link to="sync" className="nav-link">
+                <i className="now-ui-icons loader_refresh spin" />
+                <p>
+                  <span className="d-lg-none d-md-block">Syncronize</span>
+                </p>
+              </Link>
+            </NavItem>
+            <NavItem>
+              <Link to={process.env.REACT_APP_WEB_ROOT + "/settings"} className="nav-link">
+                <i className="now-ui-icons ui-1_settings-gear-63 spin" />
                 <p>
                   <span className="d-lg-none d-md-block">Settings</span>
                 </p>
@@ -215,7 +221,7 @@ function Navigation(props) {
             }
             {!user.login &&
             <NavItem>
-              <Link to={process.env.REACT_APP_WEB_ROOT + "/common/login"} className="nav-link">
+              <Link to={process.env.REACT_APP_WEB_ROOT + "/login"} className="nav-link">
                 <i className="now-ui-icons users_circle-08" />
                 <p>
                   <span className="d-lg-none d-md-block">Login</span>

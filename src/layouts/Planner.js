@@ -65,13 +65,23 @@ function Planner(props) {
         <Navigation {...props} />
         <Switch>
           {routes.map((prop, key) => {
-            return (
-              <Route
-                path={prop.layout + prop.path}
-                component={prop.component}
-                key={key}
-              />
-            );
+            if(prop.path === "/settings"){
+				return (
+	              <Route
+	                path={prop.layout + prop.path}
+	                key={key}
+	                render={() => React.createElement(prop.component, {onclick:handleColorClick, backgroundColor:backgroundColor})}
+	              />
+	            );
+			}else{
+				return (
+	              <Route
+	                path={prop.layout + prop.path}
+	                render={() => React.createElement(prop.component, {backgroundColor:backgroundColor})}
+	                key={key}
+	              />
+            	);
+        	}
           })}
           <Redirect from={process.env.REACT_APP_WEB_ROOT} to={process.env.REACT_APP_WEB_ROOT + "/home"} />
         </Switch>

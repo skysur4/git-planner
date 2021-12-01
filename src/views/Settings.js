@@ -17,51 +17,114 @@
 */
 import React from "react";
 
+import settings from "utils/settings";
+import { list } from "variables/themes";
+import locales from "variables/locales";
+import { useTranslation } from 'react-i18next';
+import i18n from "utils/i18n";
+
 // reactstrap components
 import {
-  Button,
   Card,
-  CardHeader,
   CardBody,
-  FormGroup,
-  Form,
-  Input,
+  CardHeader,
+  CardTitle,
+  Table,
   Row,
   Col,
+  Label,
+  FormGroup,
+  Input,
 } from "reactstrap";
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
-function Settings() {
+function Settings(props) {
+  const bgColor = settings.getThemeColor();
+  const { t } = useTranslation();
+  const currentLang = i18n.language;
+  const changeLanguage = (e) => {
+	const lang = e.target.value;
+	window.localStorage.setItem("locale", lang);
+	i18n.changeLanguage(lang);
+  };
+
   return (
     <>
-      <PanelHeader size="sm" />
+      <PanelHeader size="sm" color={props.backgroundColor} />
       <div className="content">
-	        <ul className="dropdown-menu show">
-	          <li className="button-container">
-	            <a
-	              href="https://www.creative-tim.com/product/now-ui-dashboard-pro-react?ref=nudr-fixed-plugin"
-	              target="_blank"
-	              className="btn btn-primary btn-block btn-round"
-	            >
-	              Buy pro
-	            </a>
-	            <a
-	              href="https://www.creative-tim.com/product/now-ui-dashboard-react?ref=nudr-fixed-plugin"
-	              target="_blank"
-	              className="btn btn-warning btn-block btn-round"
-	            >
-	              Download free
-	            </a>
-	            <a
-	              href="https://demos.creative-tim.com/now-ui-dashboard-react/#/documentation/tutorial?ref=nudr-fixed-plugin"
-	              className="btn btn-block btn-round btn-info"
-	            >
-	              Documentation
-	            </a>
-	          </li>
-	        </ul>
+        <Row>
+          <Col xs={12}>
+            <Card>
+              <CardHeader>
+                <CardTitle tag="h4">{t('settings.theme')} {t('settings.color')}</CardTitle>
+              </CardHeader>
+              <CardBody>
+                <Table responsive>
+                  <tbody>
+					<tr className="text-center">
+					  {list().map((prop, key) => {
+					  return (
+					  <td>
+					  	<span className={
+			                  bgColor === prop.color
+			                    ? "theme btn-round btn-icon btn btn-" + prop.theme + " active"
+			                    : "theme btn-round btn-icon btn btn-" + prop.theme}
+			                  data-color={prop.color}
+			                  key={key}
+			                  onClick={() => {
+			                  		props.onclick(prop.color);
+			                    }}>
+			              <i className="now-ui-icons ui-1_simple-remove" />
+			            </span>
+					  </td>
+					  )
+					  })}
+					</tr>
+                  </tbody>
+                </Table>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={12}>
+            <Card>
+              <CardHeader>
+                <CardTitle tag="h4">{t('settings.lang')}</CardTitle>
+              </CardHeader>
+              <CardBody>
+                <Table responsive>
+                  <tbody>
+					<tr>
+					  {locales.list.map((prop, key) => {
+						if(prop.supported === false) return null;
+					  return (
+						<>
+	                	  <td>
+							  <FormGroup check disabled={!prop.supported}>
+	                            <Label check>
+	                              <Input type="radio" name="langBox" value={prop.language} onChange={changeLanguage} id={"locale-"+key} checked={prop.language === currentLang}  disabled={!prop.supported}/>
+	                              <span className="form-radio-sign" />
+	                            </Label>
+	                          </FormGroup>
+	                      </td>
+	                      <td>
+	                      	{t('settings.'+prop.language)}
+	                      </td>
+                        </>
+					  )
+					  })}
+					</tr>
+                  </tbody>
+                </Table>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+
       </div>
     </>
   );

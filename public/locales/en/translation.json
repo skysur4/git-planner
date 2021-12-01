@@ -1,0 +1,34 @@
+{
+	"title": "Git Planner",
+	"search": "Search",
+
+	"sub-title": {
+		"dashboard":"Dashboard",
+		"plan":"Plan",
+		"notification":"Notification",
+		"home":"Home",
+		"settings":"Settings",
+		"login":"Login",
+		"logout":"Logout"
+	},
+
+	"alert": {
+		"welcome": "Good morning."
+	},
+
+	"editor": {
+		"title": "Editor",
+		"placeholer": "What are you planning?"
+	},
+
+	"settings": {
+		"title": "Settings",
+		"theme": "Theme",
+		"color": "Color",
+		"lang": "Language",
+		"ko": "Korean",
+		"en": "English",
+		"id": "Indonesian",
+		"unsupported": "Not supported"
+	}
+}

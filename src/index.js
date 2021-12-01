@@ -15,9 +15,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, {Suspense} from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+
+import "utils/i18n";
+import { useTranslation } from 'react-i18next';
 
 import "bootstrap/dist/css/bootstrap.css";
 import "assets/scss/now-ui-dashboard.scss?v1.5.0";
@@ -25,12 +28,27 @@ import "assets/css/git-planner.css";
 
 import PlannerLayout from "layouts/Planner.js";
 
-ReactDOM.render(
-  <BrowserRouter>
+function Index() {
+  const { t } = useTranslation();
+  document.title = t('title');
+
+  return <BrowserRouter>
     <Switch>
       <Route path={process.env.REACT_APP_WEB_ROOT} render={(props) => <PlannerLayout {...props} />} />
       <Redirect from="/" to={process.env.REACT_APP_WEB_ROOT} />
     </Switch>
-  </BrowserRouter>,
+  </BrowserRouter>
+}
+
+function Loading() {
+  return <>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/>로딩..................
+  </>
+}
+
+ReactDOM.render(
+  <Suspense fallback={<Loading />}>
+      <Index />
+  </Suspense>,
   document.getElementById("root")
 );
