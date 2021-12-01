@@ -17,7 +17,9 @@
         margin: 0;
 
         & label .form-check-sign::before,
-        & label .form-check-sign::after{
+        & label .form-check-sign::after,
+        & label .form-radio-sign::before,
+        & label .form-radio-sign::after{
             top: -17px;
             left: 4px;
         }

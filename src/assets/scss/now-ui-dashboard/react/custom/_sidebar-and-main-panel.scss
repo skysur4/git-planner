@@ -315,7 +315,9 @@
     &[data-color="yellow"]{
       @include sidebar-color($warning-color);
     }
-
+	    	&[data-color="black"]{
+      @include sidebar-color($inverse-color);
+    }
 }
 
 .visible-on-sidebar-regular{

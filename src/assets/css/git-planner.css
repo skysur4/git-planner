@@ -77,3 +77,60 @@ img.mini-avatar {
 	height: 2.5vh;
 	width: auto;
 }
+
+span.theme.active{
+	border: 3px solid cyan !important;
+}
+
+/*
+## FORM radio button customizing
+*/
+.form-check .form-radio-sign {
+  padding-bottom: 28px;
+}
+
+.form-check .form-radio-sign::before,
+.form-check .form-radio-sign::after {
+  content: " ";
+  display: inline-block;
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  background-color: transparent;
+  border: 1px solid #E3E3E3;
+  -webkit-transition: opacity 0.3s linear;
+  -moz-transition: opacity 0.3s linear;
+  -o-transition: opacity 0.3s linear;
+  -ms-transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear; }
+
+.form-check .form-radio-sign::after {
+  font-family: 'Nucleo Outline';
+  content: "\ea22";
+  top: 0px;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0;
+  color: #555555;
+  border: 0;
+  background-color: inherit; }
+
+
+.form-check input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+  visibility: hidden; }
+
+.form-check input[type="radio"]:checked + .form-radio-sign::after {
+  opacity: 1; }
+
+.form-control input[type="radio"]:disabled + .form-radio-sign::before,
+.checkbox input[type="radio"]:disabled + .form-radio-sign::after {
+  cursor: not-allowed; }
+
+.form-check input[type="radio"]:disabled + .form-radio-sign {
+  pointer-events: none; }
