@@ -19,7 +19,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
-import { useTranslation } from 'react-i18next';
 
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
@@ -34,7 +33,7 @@ function Sidebar(props) {
   const activeRoute = (routeName) => {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
-  const { t } = useTranslation();
+  const t = props.t;
 
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {

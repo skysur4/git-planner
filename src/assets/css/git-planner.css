@@ -134,3 +134,7 @@ span.theme.active{
 
 .form-check input[type="radio"]:disabled + .form-radio-sign {
   pointer-events: none; }
+
+.rbc-calendar i.now-ui-icons {
+	font-size: small;
+}

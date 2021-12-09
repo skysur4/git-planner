@@ -1,5 +1,4 @@
-export function list(){
-	return [
+const list = [
 	  {
 		theme: "warning",
 		color: "yellow",
@@ -31,7 +30,9 @@ export function list(){
 	    icon: "ui-1_simple-remove",
 	  },
 	];
-}
-export function count(){
+
+const count = () => {
 	return list().length;
 }
+
+export default { list, count }

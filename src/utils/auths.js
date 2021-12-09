@@ -13,7 +13,7 @@ function setAuthToken(token){
 
 function getAuthToken(){
 	const token = window.localStorage.getItem("token");
-	return token=='undefined'?null:token;
+	return (token==undefined || token==null || token=="undefined" || token=="null")?"":token;
 }
 
 function createStateCode(){

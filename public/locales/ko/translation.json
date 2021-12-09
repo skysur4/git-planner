@@ -1,6 +1,8 @@
 {
 	"title": "깃플래너",
 	"search": "검색",
+	"calendar": "달력",
+	"agenda": "이벤트",
 
 	"sub-title": {
 		"dashboard":"1+1=?",
@@ -13,12 +15,19 @@
 	},
 
 	"alert": {
-		"welcome": "좋은 아침 입니다."
+		"welcome": "좋은 아침 입니다.",
+		"error": "오류 ",
+		"complete": "완료 ",
+		"authentication": "인증 ",
+		"access": "접근 ",
+		"api": "API ",
+		"call": "호출 "
 	},
 
 	"editor": {
 		"title": "에디터",
-		"placeholer": "무엇을 계획 중이신가요?"
+		"placeholer": "무엇을 계획 중이신가요?",
+		"tag-info": "띄어쓰기로 분리됩니다"
 	},
 
 	"settings": {

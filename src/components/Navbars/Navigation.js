@@ -35,12 +35,9 @@ import {
   Input,
 } from "reactstrap";
 
-import { useTranslation } from 'react-i18next';
-
-import auths from "utils/auths";
-import github from "variables/github";
-
 import routes from "routes.js";
+
+import moment from 'moment';
 
 function Navigation(props) {
   const location = useLocation();
@@ -48,8 +45,8 @@ function Navigation(props) {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [color, setColor] = React.useState("transparent");
   const sidebarToggle = React.useRef();
-  const [user, setUser] = React.useState({});
-  const { t } = useTranslation();
+  const t = props.t;
+  const user = !props.loginUser?{login: undefined}:props.loginUser;
 
   const toggle = () => {
     if (isOpen) {
@@ -98,26 +95,13 @@ function Navigation(props) {
   };
 
   const logout = () => {
-	auths.setAuthToken("");
-	window.location.replace(webRoot);
+	window.notify("bc");
+	window.location.replace(process.env.REACT_APP_WEB_ROOT + "/dashboard");
   }
 
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
-	const token = auths.getAuthToken();
-	if(!!token){
-	    fetch(github.api.profile,
-			{
-				method: "GET",
-				headers: github.header(token),
-			}
-		).then(res => res.json()
-		).then(data => {
-			setUser(data);
-		}).catch(err => {
-			alert("사용자 정보 조회 증 오류 발생: [{0}]", err);
-		});
-	}
+
   }, []);
   React.useEffect(() => {
     if (

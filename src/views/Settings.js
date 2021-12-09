@@ -18,11 +18,8 @@
 import React from "react";
 
 import settings from "utils/settings";
-import { list } from "variables/themes";
+import themes from "variables/themes";
 import locales from "variables/locales";
-
-import i18n from "utils/i18n";
-import { useTranslation } from 'react-i18next';
 
 // reactstrap components
 import {
@@ -43,8 +40,9 @@ import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 function Settings(props) {
   const bgColor = settings.getThemeColor();
-  const { t } = useTranslation();
-  const currentLang = i18n.language;
+  const t = props.t;
+  const i18n = props.i18n;
+  const currentLang = i18n.resolvedLanguage;
 
   const changeLanguage = (e) => {
 	const lang = e.target.value;
@@ -66,15 +64,14 @@ function Settings(props) {
                 <Table responsive>
                   <tbody>
 					<tr className="text-center">
-					  {list().map((prop, key) => {
+					  {themes.list.map((prop, key) => {
 					  return (
-					  <td>
+					  <td key={"theme-color-" + key}>
 					  	<span className={
 			                  bgColor === prop.color
 			                    ? "theme btn-round btn-icon btn btn-" + prop.theme + " active"
 			                    : "theme btn-round btn-icon btn btn-" + prop.theme}
 			                  data-color={prop.color}
-			                  key={key}
 			                  onClick={() => {
 			                  		props.onclick(prop.color);
 			                    }}>
@@ -105,7 +102,7 @@ function Settings(props) {
 						if(prop.supported === false) return null;
 					  return (
 						<>
-	                	  <td>
+	                	  <td key={"language-" + key}>
 							  <FormGroup check disabled={!prop.supported}>
 	                            <Label check>
 	                              <Input type="radio" name="langBox" value={prop.language} onChange={changeLanguage} id={"locale-"+key} checked={prop.language === currentLang}  disabled={!prop.supported}/>

@@ -26,7 +26,6 @@ import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 import Navigation from "components/Navbars/Navigation.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import Settings from "components/FixedPlugin/Settings.js";
 import settings from "utils/settings";
 
 import routes from "routes.js";
@@ -34,6 +33,8 @@ import routes from "routes.js";
 var ps;
 
 function Planner(props) {
+  const t = props.t;
+  const i18n = props.i18n;
   const location = useLocation();
   const [backgroundColor, setBackgroundColor] = React.useState(settings.getThemeColor());
   const mainPanel = React.useRef();
@@ -58,11 +59,12 @@ function Planner(props) {
 	settings.setThemeColor(color);
     setBackgroundColor(color);
   };
+
   return (
     <div className="wrapper">
-      <Sidebar {...props} routes={routes} backgroundColor={backgroundColor} />
+      <Sidebar {...props} routes={routes} backgroundColor={backgroundColor} i18n={i18n} t={t} />
       <div className="main-panel" ref={mainPanel}>
-        <Navigation {...props} />
+        <Navigation {...props} i18n={i18n} t={t} />
         <Switch>
           {routes.map((prop, key) => {
             if(prop.path === "/settings"){
@@ -70,14 +72,14 @@ function Planner(props) {
 	              <Route
 	                path={prop.layout + prop.path}
 	                key={key}
-	                render={() => React.createElement(prop.component, {onclick:handleColorClick, backgroundColor:backgroundColor})}
+	                render={() => React.createElement(prop.component, {onclick:handleColorClick, backgroundColor:backgroundColor, i18n:{i18n}, t:{t}, ...props })}
 	              />
 	            );
 			}else{
 				return (
 	              <Route
 	                path={prop.layout + prop.path}
-	                render={() => React.createElement(prop.component, {backgroundColor:backgroundColor})}
+	                render={() => React.createElement(prop.component, {backgroundColor:backgroundColor, i18n:{i18n}, t:{t}, ...props})}
 	                key={key}
 	              />
             	);
@@ -87,10 +89,12 @@ function Planner(props) {
         </Switch>
         <Footer fluid />
       </div>
+      {/*
       <Settings
         bgColor={backgroundColor}
         handleColorClick={handleColorClick}
       />
+      */}
     </div>
   );
 }

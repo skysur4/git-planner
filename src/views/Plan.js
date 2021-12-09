@@ -17,9 +17,6 @@
 */
 import React from "react";
 
-import i18n from "utils/i18n";
-import { useTranslation } from 'react-i18next';
-
 // prepare SunEditor
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
@@ -38,78 +35,52 @@ import {
   FormGroup,
   Input,
   InputGroup,
+  InputGroupText,
   Button
 } from "reactstrap";
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
-function SunEditorCard(props){
-  const { t } = useTranslation();
-  const currentLang = i18n.language;
-
-  return (
-		<>
-        <Row>
-          <Col xs={12}>
-		    <Card>
-		      <CardHeader>
-		        <CardTitle tag="h4">{t('editor.placeholer')}</CardTitle>
-		      </CardHeader>
-		      <CardBody>
-				<CardText>
-						<SunEditor
-						    // setContents="My contents"
-						    lang={currentLang}
-						    showToolbar={true}
-						    onChange={props.onchange}
-						    setDefaultStyle="height: auto"
-						    placeholder={t('editor.placeholer')}
-						    setOptions={{
-								//buttonList: buttonList.basic
-								//buttonList: buttonList.formatting
-								//buttonList: buttonList.complex
-						      buttonList: [ //=buttonList.complex
-								  ["font", "fontSize", "formatBlock"],
-								  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
-								  ["removeFormat"],
-								  ["fontColor", "hiliteColor"],
-								  ["outdent", "indent"],
-								  ["align", "horizontalRule", "list", "table"],
-								  ["link", "image", "video"],
-								  //["fullScreen", "showBlocks", "codeView"],
-								  //["preview", "print"],
-								  //["save", "template"],
-								  ["undo", "redo"],
-								]
-						    }}
-						  />
-				  </CardText>
-				  <CardText>
-				      <InputGroup size="lg" className="mb-3">
-					    <Input id="basic-addon1" placeholder="태그" aria-autocomplete="both" />
-					  </InputGroup>
-					  <Button color="primary" >저장</Button>
-				  </CardText>
-		      </CardBody>
-		    </Card>
-          </Col>
-    	</Row>
-    	</>
-  );
-}
-
-class Home extends React.Component {
+class Plan extends React.Component {
 
 	constructor(props){
 		super(props);
 
-		this.state = {model:{}};
+  		this.i18n = props.i18n;
+  		this.t = props.t;
+  		this.currentLang = props.i18n.resolvedLanguage;
 
-		this.handleEditorChange = this.handleEditorChange.bind(this);
+		this.state = {placeholder:{}, hashtag:[]};
+
+		fetch("https://api.adviceslip.com/advice",
+			{
+				method: "GET",
+			}
+		).then(res => res.json()
+		).then(data => {
+			this.setState({placeholder: data.slip.advice});
+		}).catch(err => {
+			window.error(this.props.t('alert.api') + this.props.t('alert.call') + this.props.t('alert.error') + ": [" + err + "]");
+		});
 	}
 
-	handleEditorChange(content){
+	handleEditorChange = (content) => {
+		this.setState({content: content});
+	};
+
+	handleEditorSave = (e) => {
+		const doc = {
+			'hashtag': this.state.hashtag.join(" "),
+			'content': this.state.content
+		}
+
+		console.log(doc);
+	};
+
+	handleTagChange = (e) => {
+		const tagList = (e.target.value).trim().replace(/\s+/g, "#").split("#");
+		this.setState({hashtag: tagList});
 	};
 
 	componentDidMount(){
@@ -117,16 +88,68 @@ class Home extends React.Component {
 	}
 
 	render() {
-
 		return (
 		    <>
 		      <PanelHeader size="sm" />
 		      <div className="content">
-					<SunEditorCard onchange={this.handleEditorChange} />
+			        <Row>
+			          <Col xs={12}>
+					    <Card>
+					      <CardHeader>
+					        <CardTitle tag="h4">{this.t('editor.placeholer')}</CardTitle>
+					      </CardHeader>
+					      <CardBody>
+							<CardText>
+								<SunEditor
+								    // setContents="My contents"
+								    id="editor"
+								    lang={this.currentLang}
+								    showToolbar={true}
+								    onChange={this.handleEditorChange}
+								    setDefaultStyle="height: auto"
+								    placeholder={this.state.placeholder}
+								    setOptions={{
+										//buttonList: buttonList.basic
+										//buttonList: buttonList.formatting
+										//buttonList: buttonList.complex
+								      buttonList: [ //=buttonList.complex
+										  ["font", "fontSize", "formatBlock"],
+										  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
+										  ["removeFormat"],
+										  ["fontColor", "hiliteColor"],
+										  ["outdent", "indent"],
+										  ["align", "horizontalRule", "list", "table"],
+										  ["link", "image", "video"],
+										  //["fullScreen", "showBlocks", "codeView"],
+										  //["preview", "print"],
+										  //["save", "template"],
+										  ["undo", "redo"],
+										]
+								    }}
+									  />
+							  </CardText>
+							  <FormGroup className="text-right">
+								  <InputGroup>
+								    <InputGroupText><i className={"now-ui-icons shopping_tag-content"} /></InputGroupText>
+								    <Input id="hashtag" className="text-right" placeholder={this.t('editor.tag-info')} aria-autocomplete="list" onInput={this.handleTagChange} />
+								    <Label size="lg">{
+										this.state.hashtag.map((value, index) => {
+											return (
+												<span key={"tag"+index}>&nbsp;<i className={"now-ui-icons shopping_tag-content"} >{value}</i></span>
+											)
+										})
+									}</Label>
+								  </InputGroup>
+						  		  <Button color="primary" onClick={this.handleEditorSave}>저장</Button>
+					  		  </FormGroup>
+					      </CardBody>
+					    </Card>
+			          </Col>
+			    	</Row>
 		      </div>
 		    </>
 		)
 	}
 }
 
-export default Home;
+export default Plan;

@@ -28,10 +28,26 @@ class Login extends React.Component {
 	constructor(props){
 		super(props);
 
-		this.state = {loginStatus:false};
+		this.state = {loginId: undefined};
+
+		this.t = props.t;
 	}
 
-	componentDidMount(){
+	checkDataRepository = () => {
+	    fetch(github.api.getRepo(this.state.loginId),
+			{
+				method: "GET",
+				headers: github.header(token),
+			}
+		).then(res => res.json()
+		).then(data => {
+			debugger;
+		}).catch(err => {
+			alert(this.props.t('alert.authentication') + this.props.t('alert.error') + ": [" + err +"]");
+		});
+	}
+
+	componentDidMount = () => {
 		const params = queryString.parse(this.props.location.search, {ignoreQueryPrefix: true});
 		if(!!params && !!params.code){
 			const code = params.code;
@@ -41,26 +57,28 @@ class Login extends React.Component {
 			    fetch(github.authroization,
 					{
 						method: "POST",
-						body: {code: code},
+						headers: github.header(),
+						body: github.body({code: code}),
 					}
 				).then(res => res.json()
-			    ).then(res => {
-				debugger;
-					auths.setAuthToken(res.data.access_token);
+			    ).then(data => {
+					auths.setAuthToken(data.access_token);
 					window.location.replace(process.env.REACT_APP_WEB_ROOT);
+
 				}).catch(err => {
-					alert("인증 증 오류 발생: [" + err +"]");
+					alert(this.props.t('alert.authentication') + this.props.t('alert.error') + ": [" + err +"]");
 				});
 
 			}else{
-				alert("잘못된 접근입니다. 다시 시도해 주세요.");
+				alert(this.props.t('alert.access') + this.props.t('alert.error'));
 				window.location.replace(process.env.REACT_APP_WEB_ROOT);
 			}
 		}else if(!!params && !!params.error){
+			debugger;
 			if(params.error === "redirect_uri_mismatch"){
-				alert("인증되지 않은 앱입니다. 꺼지세요.");
+				alert(this.props.t('alert.authentication') + this.props.t('alert.error') + ": [" + params.error_description + "]");
 			}else{
-				alert("잘못된 접근입니다. 다시 시도해 주세요.");
+				alert(this.props.t('alert.access') + this.props.t('alert.error'));
 			}
 			window.location.replace(process.env.REACT_APP_WEB_ROOT);
 
@@ -76,7 +94,8 @@ class Login extends React.Component {
 					"&scope=" + escape(github.scope) +
 					"&state=" + state);
 			}else{
-				debugger;
+				alert(t('alert.authentication') + t('alert.complete'));
+				//this.checkDataRespository();
 				window.location.replace(process.env.REACT_APP_WEB_ROOT);
 			}
 		}

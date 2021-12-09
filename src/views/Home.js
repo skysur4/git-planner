@@ -17,113 +17,239 @@
 */
 import React from "react";
 
-import i18n from "utils/i18n";
-import { useTranslation } from 'react-i18next';
-
-// prepare SunEditor
-import SunEditor from "suneditor-react";
-import "suneditor/dist/css/suneditor.min.css";
-
-// reactstrap components
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  CardText,
-  Table,
-  Row,
-  Col,
-  Label,
-  FormGroup,
-  Input,
-  Button
-} from "reactstrap";
-
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
+import moment from 'moment';
 
-function SunEditorCard(props){
-  const { t } = useTranslation();
-  const currentLang = i18n.language;
+import {Calendar, momentLocalizer} from 'react-big-calendar'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 
+// reactstrap components
+import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+
+import Toolbar from 'components/Calendar/Toolbar';
+
+function Event({ event }) {
   return (
-		<>
-        <Row>
-          <Col xs={12}>
-		    <Card>
-		      <CardHeader>
-		        <CardTitle tag="h4">{t('editor.placeholer')}</CardTitle>
-		      </CardHeader>
-		      <CardBody>
-				<CardText>
-						<SunEditor
-						    // setContents="My contents"
-						    lang={currentLang}
-						    showToolbar={true}
-						    onChange={props.onchange}
-						    setDefaultStyle="height: auto"
-						    placeholder={t('editor.placeholer')}
-						    setOptions={{
-								//buttonList: buttonList.basic
-								//buttonList: buttonList.formatting
-								//buttonList: buttonList.complex
-						      buttonList: [ //=buttonList.complex
-								  ["font", "fontSize", "formatBlock"],
-								  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
-								  ["removeFormat"],
-								  ["fontColor", "hiliteColor"],
-								  ["outdent", "indent"],
-								  ["align", "horizontalRule", "list", "table"],
-								  ["link", "image", "video"],
-								  //["fullScreen", "showBlocks", "codeView"],
-								  //["preview", "print"],
-								  //["save", "template"],
-								  ["undo", "redo"],
-								]
-						    }}
-						  />
-				  </CardText>
-				  <CardText>
-						  <FormGroup className="mb-3">
-		                    <Label>
-		                      <Input type="text" id="inputTag" placeholder="태그" />
-		                    </Label>
-		                  </FormGroup>
-				  </CardText>
-                  <Button color="primary">저장</Button>
-		      </CardBody>
-		    </Card>
-          </Col>
-    	</Row>
-    	</>
-  );
+    <span>
+      <strong>
+        {event.title}
+      </strong>
+      { event.desc && (':  ' + event.desc) }
+    </span>
+  )
 }
+
 class Home extends React.Component {
 
 	constructor(props){
 		super(props);
 
-		this.state = {model:{}};
+  		this.t = props.t;
+  		this.locale = props.i18n.resolvedLanguage;
 
-		this.handleEditorChange = this.handleEditorChange.bind(this);
+		this.localizer = momentLocalizer(moment);
+
+		this.handleClickEvent = this.handleClickEvent.bind(this);
+		this.handleClickDate = this.handleClickDate.bind(this);
+
+		this.state = {
+			moment: moment(),
+			eventsList: [
+				{
+				  title: "test",
+				  desc: "아주 아주 아주 아주 아주 아주 아주 아주 아주 아주 아주 아주 아주 아주 아주 아주 아주 긴 설명 테스트",
+				  start: new Date(1638953934689),
+				  end: new Date(1638953934689),
+				  allDay: true,
+				  resource: {}
+				},
+				{
+				  title: "test2",
+				  desc: "설명 테스트",
+				  start: new Date(1638953934689),
+				  end: new Date(1638953944689),
+				  allDay: false,
+				  resource: ""
+				},
+				{
+				  title: "test3",
+				  start: new Date(1638953934689),
+				  end: new Date(1638981944689),
+				  allDay: false,
+				  resource: ""
+				},
+				{
+				  title: "test4",
+				  start: new Date(1638953934689),
+				  end: new Date(1638981944689),
+				  allDay: false,
+				  resource: ""
+				},
+				{
+				  title: "test5",
+				  start: new Date(1638953934689),
+				  end: new Date(1638981944689),
+				  allDay: false,
+				  resource: ""
+				},
+				{
+				  title: "test6",
+				  start: new Date(1638953934689),
+				  end: new Date(1638981944689),
+				  allDay: false,
+				  resource: ""
+				},
+				{
+				  title: "test7",
+				  start: new Date(1638953934689),
+				  end: new Date(1638981944689),
+				  allDay: false,
+				  resource: ""
+				},
+				{
+				  title: "test8",
+				  start: new Date(1638953934689),
+				  end: new Date(1638981944689),
+				  allDay: false,
+				  resource: ""
+				},
+				{
+				  title: "test9",
+				  start: new Date(1638953934689),
+				  end: new Date(1638981944689),
+				  allDay: false,
+				  resource: ""
+				},
+				{
+				  title: "test asldkjfokjq a sodj o123 41 234  ",
+				  start: new Date(1638953934689),
+				  end: new Date(1638981944689),
+				  allDay: false,
+				  resource: ""
+				}
+			],
+
+			winWidth: 1024,
+			winHeight: 768,
+		}
 	}
 
-	handleEditorChange(content){
+	updateDimensions = () => {
+	    this.setState({winWidth: window.innerWidth, winHeight: window.innerHeight});
+	}
+
+	componentWillUnmount = () => {
+		window.removeEventListener("resize", this.updateDimensions);
+
+		clearInterval(this.currentTimer);
+	}
+
+	componentDidMount = () => {
+		window.notify('tr');
+		window.addEventListener("resize", this.updateDimensions);
+
+	    this.currentTimer = setInterval(
+	      () => this.tick(),
+	      1000
+	    );
+	}
+
+	tick() {
+		this.setState({
+			moment: moment()
+		});
+	}
+
+	handleClickEvent = (e) => {
+		console.log(e);
+	}
+
+	handleClickDate = (e) => {
+		console.log(e);
+	}
+
+	handleView = (e) => {
 		debugger;
-	};
-
-	componentDidMount(){
-
+		console.log(e);
 	}
 
 	render() {
+		const formats = {
+		  dateFormat: 'Do',
+		  monthHeaderFormat: 'YYYY/MM',
+		  dayHeaderFormat: 'Mo Do',
+		  dayRangeHeaderFormat: ({ start, end }, culture, localizer) => localizer.format(start, 'LL', culture) + '~' + localizer.format(end, 'LL', culture),
+		  agendaDateFormat: 'Mo Do',
+		  agendaTimeFormat: 'HH:mm',
+		  agendaHeaderFormat: ({ start, end }, culture, localizer) => localizer.format(start, 'Mo Do', culture) + '~' + localizer.format(end, 'Mo Do', culture),
+		  agendaTimeRangeFormat: ({ start, end }, culture, localizer) => localizer.format(start, 'HH:mm', culture) + '~' + localizer.format(end, 'HH:mm', culture)
+		}
+
+		const components = {
+			event: Event,
+			toolbar: Toolbar
+		}
 
 		return (
 		    <>
 		      <PanelHeader size="sm" />
 		      <div className="content">
-					<SunEditorCard onchange={this.handleEditorChange} />
+		        <Row>
+		          <Col md={12} className="d-none d-md-flex">
+		            <Card>
+		              <CardHeader>
+		                <h5 className="title">{this.t('calendar')}</h5>
+		                <p className="category">{moment().format('LL')} {this.state.moment.format('LTS')}</p>
+		              </CardHeader>
+		              <CardBody className="all-icons" type="warning">
+					    <Calendar
+					      view="month"
+					      localizer={this.localizer}
+					      events={this.state.eventsList}
+					      startAccessor="start"
+					      endAccessor="end"
+					      popup={true}
+						  formats={formats}
+						  components={components}
+					      style={{ height: this.state.winWidth/this.state.winHeight>1?this.state.winHeight:this.state.winHeight*0.7 }}
+					      onDrillDown={this.handleClickDate}
+  					      onSelectSlot={this.handleClickDate}
+					      onSelectEvent={this.handleClickEvent}
+					      onView={this.handleView}
+					    />
+		              </CardBody>
+		            </Card>
+		          </Col>
+		        </Row>
+
+		        <Row>
+		          <Col sm={12} className="d-flex d-md-none">
+		            <Card>
+		              <CardHeader>
+		                <h5 className="title">{this.t('agenda')}</h5>
+		                <p className="category">{moment().format('LL')} {this.state.moment.format('LTS')}</p>
+		              </CardHeader>
+		              <CardBody className="all-icons" type="warning">
+					    <Calendar
+					      view="agenda"
+					      localizer={this.localizer}
+					      events={this.state.eventsList}
+					      startAccessor="start"
+					      endAccessor="end"
+					      popup={true}
+						  formats = {formats}
+						  components={components}
+					      style={{ height: this.state.winHeight }}
+					      onDrillDown={this.handleClickDate}
+					      onSelectSlot={this.handleClickDate}
+					      onSelectEvent={this.handleClickEvent}
+					      onView={this.handleView}
+					    />
+		              </CardBody>
+		            </Card>
+		          </Col>
+		        </Row>
 		      </div>
 		    </>
 		)

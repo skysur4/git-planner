@@ -1,6 +1,8 @@
 {
 	"title": "Git Planner",
 	"search": "Search",
+	"calendar": "Calendar",
+	"agenda": "Agenda",
 
 	"sub-title": {
 		"dashboard":"Dashboard",
@@ -13,12 +15,19 @@
 	},
 
 	"alert": {
-		"welcome": "Good morning."
+		"welcome": "Good morning.",
+		"error": "Error ",
+		"complete": "Complete ",
+		"authentication": "Authentication ",
+		"access": "Access ",
+		"api": "API ",
+		"call": "Call "
 	},
 
 	"editor": {
 		"title": "Editor",
-		"placeholer": "What are you planning?"
+		"placeholer": "What are you planning?",
+		"tag-info": "Tagged by each space"
 	},
 
 	"settings": {
