@@ -19,41 +19,22 @@ import React from "react";
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
-import moment from 'moment';
-
-import {Calendar, momentLocalizer} from 'react-big-calendar'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
 
-import Toolbar from 'components/Calendar/Toolbar';
+import Calendar from 'components/Calendar/Default';
 
-function Event({ event }) {
-  return (
-    <span>
-      <strong>
-        {event.title}
-      </strong>
-      { event.desc && (':  ' + event.desc) }
-    </span>
-  )
-}
+import moment from 'moment';
 
 class Home extends React.Component {
 
 	constructor(props){
 		super(props);
 
-  		this.t = props.t;
-  		this.locale = props.i18n.resolvedLanguage;
-
-		this.localizer = momentLocalizer(moment);
-
-		this.handleClickEvent = this.handleClickEvent.bind(this);
-		this.handleClickDate = this.handleClickDate.bind(this);
-
 		this.state = {
+			winWidth: window.innerWidth,
+			winHeight: window.innerHeight,
 			moment: moment(),
 			eventsList: [
 				{
@@ -129,30 +110,37 @@ class Home extends React.Component {
 				  resource: ""
 				}
 			],
-
-			winWidth: 1024,
-			winHeight: 768,
 		}
 	}
 
 	updateDimensions = () => {
-	    this.setState({winWidth: window.innerWidth, winHeight: window.innerHeight});
+		let winWidth = window.innerWidth;
+		let winHeight = window.innerHeight;
+
+		if(winWidth > 991) winWidth = winWidth - 360;
+		winHeight = winHeight - 310;
+
+		if(winHeight < winWidth * 0.9) winHeight = winWidth * 0.9;
+		if(winHeight > winWidth * 1.1) winHeight = winWidth * 1.1;
+
+
+	    this.setState({calHeight: winHeight});
 	}
 
 	componentWillUnmount = () => {
 		window.removeEventListener("resize", this.updateDimensions);
-
 		clearInterval(this.currentTimer);
 	}
 
 	componentDidMount = () => {
-		window.notify('tr');
 		window.addEventListener("resize", this.updateDimensions);
-
+		window.notify('tr');
 	    this.currentTimer = setInterval(
 	      () => this.tick(),
 	      1000
 	    );
+
+	    this.updateDimensions();
 	}
 
 	tick() {
@@ -161,62 +149,24 @@ class Home extends React.Component {
 		});
 	}
 
-	handleClickEvent = (e) => {
-		console.log(e);
-	}
-
-	handleClickDate = (e) => {
-		console.log(e);
-	}
-
-	handleView = (e) => {
-		debugger;
-		console.log(e);
-	}
-
 	render() {
-		const formats = {
-		  dateFormat: 'Do',
-		  monthHeaderFormat: 'YYYY/MM',
-		  dayHeaderFormat: 'Mo Do',
-		  dayRangeHeaderFormat: ({ start, end }, culture, localizer) => localizer.format(start, 'LL', culture) + '~' + localizer.format(end, 'LL', culture),
-		  agendaDateFormat: 'Mo Do',
-		  agendaTimeFormat: 'HH:mm',
-		  agendaHeaderFormat: ({ start, end }, culture, localizer) => localizer.format(start, 'Mo Do', culture) + '~' + localizer.format(end, 'Mo Do', culture),
-		  agendaTimeRangeFormat: ({ start, end }, culture, localizer) => localizer.format(start, 'HH:mm', culture) + '~' + localizer.format(end, 'HH:mm', culture)
-		}
-
-		const components = {
-			event: Event,
-			toolbar: Toolbar
-		}
-
 		return (
 		    <>
 		      <PanelHeader size="sm" />
 		      <div className="content">
 		        <Row>
-		          <Col md={12} className="d-none d-md-flex">
+		          <Col md={12} className="d-none d-lg-flex">
 		            <Card>
 		              <CardHeader>
-		                <h5 className="title">{this.t('calendar')}</h5>
-		                <p className="category">{moment().format('LL')} {this.state.moment.format('LTS')}</p>
+		                <h5 className="title">{t('scan')}</h5>
+		                <p className="category">{this.state.moment.format('LL LTS')}</p>
 		              </CardHeader>
 		              <CardBody className="all-icons" type="warning">
 					    <Calendar
-					      view="month"
-					      localizer={this.localizer}
+					      view='month'
 					      events={this.state.eventsList}
-					      startAccessor="start"
-					      endAccessor="end"
-					      popup={true}
-						  formats={formats}
-						  components={components}
-					      style={{ height: this.state.winWidth/this.state.winHeight>1?this.state.winHeight:this.state.winHeight*0.7 }}
-					      onDrillDown={this.handleClickDate}
-  					      onSelectSlot={this.handleClickDate}
-					      onSelectEvent={this.handleClickEvent}
-					      onView={this.handleView}
+
+					      style={{ height: this.state.calHeight }}
 					    />
 		              </CardBody>
 		            </Card>
@@ -224,27 +174,17 @@ class Home extends React.Component {
 		        </Row>
 
 		        <Row>
-		          <Col sm={12} className="d-flex d-md-none">
+		          <Col sm={12} className="d-flex d-lg-none">
 		            <Card>
 		              <CardHeader>
-		                <h5 className="title">{this.t('agenda')}</h5>
-		                <p className="category">{moment().format('LL')} {this.state.moment.format('LTS')}</p>
+		                <h5 className="title">{t('scan')}</h5>
+		                <p className="category">{this.state.moment.format('LL LTS')}</p>
 		              </CardHeader>
 		              <CardBody className="all-icons" type="warning">
 					    <Calendar
-					      view="agenda"
-					      localizer={this.localizer}
+					      view='agenda'
 					      events={this.state.eventsList}
-					      startAccessor="start"
-					      endAccessor="end"
-					      popup={true}
-						  formats = {formats}
-						  components={components}
-					      style={{ height: this.state.winHeight }}
-					      onDrillDown={this.handleClickDate}
-					      onSelectSlot={this.handleClickDate}
-					      onSelectEvent={this.handleClickEvent}
-					      onView={this.handleView}
+					      style={{ height: this.state.calHeight }}
 					    />
 		              </CardBody>
 		            </Card>

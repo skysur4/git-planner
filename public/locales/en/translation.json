@@ -2,10 +2,12 @@
 	"title": "Git Planner",
 	"search": "Search",
 	"calendar": "Calendar",
-	"agenda": "Agenda",
+	"scan": "Scan Through",
 
 	"sub-title": {
 		"dashboard":"Dashboard",
+		"note":"Note",
+		"memo":"Memo",
 		"plan":"Plan",
 		"notification":"Notification",
 		"home":"Home",
@@ -24,6 +26,11 @@
 		"call": "Call "
 	},
 
+	"memo": {
+		"title": "Write A Memo",
+		"resize-will-reset": "Warning! Resizing Screen will reset content."
+	},
+
 	"editor": {
 		"title": "Editor",
 		"placeholer": "What are you planning?",
@@ -38,6 +45,9 @@
 		"ko": "Korean",
 		"en": "English",
 		"id": "Indonesian",
+		"mode": "Mode",
+		"advanced": "Advanced",
+		"simple": "Simple",
 		"unsupported": "Not supported"
 	}
 }

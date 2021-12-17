@@ -18,6 +18,8 @@
 import Login from "views/Login.js";
 import Home from "views/Home.js";
 import Dashboard from "views/Dashboard.js";
+import Note from "views/Note.js";
+import Memo from "views/Memo.js";
 import Plan from "views/Plan.js";
 import Notifications from "views/Notifications.js";
 import Icons from "views/Icons.js";
@@ -42,6 +44,20 @@ var dashRoutes = [
     name: "dashboard",
     icon: "design_app",
     component: Dashboard,
+    layout: process.env.REACT_APP_WEB_ROOT,
+  },
+  {
+    path: "/note",
+    name: "note",
+    icon: "files_paper",
+    component: Note,
+    layout: process.env.REACT_APP_WEB_ROOT,
+  },
+  {
+    path: "/memo",
+    name: "memo",
+    icon: "design-2_ruler-pencil",
+    component: Memo,
     layout: process.env.REACT_APP_WEB_ROOT,
   },
   {

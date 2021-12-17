@@ -37,8 +37,6 @@ import {
 
 import routes from "routes.js";
 
-import moment from 'moment';
-
 function Navigation(props) {
   const location = useLocation();
   const [isOpen, setIsOpen] = React.useState(false);

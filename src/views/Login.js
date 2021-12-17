@@ -29,8 +29,6 @@ class Login extends React.Component {
 		super(props);
 
 		this.state = {loginId: undefined};
-
-		this.t = props.t;
 	}
 
 	checkDataRepository = () => {
@@ -43,7 +41,7 @@ class Login extends React.Component {
 		).then(data => {
 			debugger;
 		}).catch(err => {
-			alert(this.props.t('alert.authentication') + this.props.t('alert.error') + ": [" + err +"]");
+			alert(t('alert.authentication') + t('alert.error') + ": [" + err +"]");
 		});
 	}
 
@@ -66,19 +64,19 @@ class Login extends React.Component {
 					window.location.replace(process.env.REACT_APP_WEB_ROOT);
 
 				}).catch(err => {
-					alert(this.props.t('alert.authentication') + this.props.t('alert.error') + ": [" + err +"]");
+					alert(t('alert.authentication') + t('alert.error') + ": [" + err +"]");
 				});
 
 			}else{
-				alert(this.props.t('alert.access') + this.props.t('alert.error'));
+				alert(t('alert.access') + t('alert.error'));
 				window.location.replace(process.env.REACT_APP_WEB_ROOT);
 			}
 		}else if(!!params && !!params.error){
 			debugger;
 			if(params.error === "redirect_uri_mismatch"){
-				alert(this.props.t('alert.authentication') + this.props.t('alert.error') + ": [" + params.error_description + "]");
+				alert(t('alert.authentication') + t('alert.error') + ": [" + params.error_description + "]");
 			}else{
-				alert(this.props.t('alert.access') + this.props.t('alert.error'));
+				alert(t('alert.access') + t('alert.error'));
 			}
 			window.location.replace(process.env.REACT_APP_WEB_ROOT);
 

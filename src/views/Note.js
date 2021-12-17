@@ -49,18 +49,24 @@ class Plan extends React.Component {
 
   		this.currentLang = i18n.resolvedLanguage;
 
-		this.state = {placeholder:{}, hashtag:[]};
+		this.state = {placeholder:{}, text:undefined, hashtag:[], height: 300};
 
-		fetch("https://api.adviceslip.com/advice",
-			{
-				method: "GET",
-			}
-		).then(res => res.json()
-		).then(data => {
-			this.setState({placeholder: data.slip.advice});
-		}).catch(err => {
-			window.error(t('alert.api') + t('alert.call') + t('alert.error') + ": [" + err + "]");
-		});
+		const getOcr = window.localStorage.getItem("ocr");
+		if(getOcr){
+			this.state.text = getOcr;
+			window.localStorage.removeItem("ocr");
+		}else{
+			fetch("https://api.adviceslip.com/advice",
+				{
+					method: "GET",
+				}
+			).then(res => res.json()
+			).then(data => {
+				this.setState({placeholder: data.slip.advice});
+			}).catch(err => {
+				window.error(t('alert.api') + t('alert.call') + t('alert.error') + ": [" + err + "]");
+			});
+		}
 	}
 
 	handleEditorChange = (content) => {
@@ -81,8 +87,21 @@ class Plan extends React.Component {
 		this.setState({hashtag: tagList});
 	};
 
-	componentDidMount(){
+	updateDimensions = () => {
+		let winHeight = window.innerHeight;
+		winHeight = winHeight - 550;
 
+	    this.setState({height: winHeight});
+	}
+
+	componentWillUnmount = () => {
+		window.removeEventListener("resize", this.updateDimensions);
+	}
+
+	componentDidMount = () => {
+		window.addEventListener("resize", this.updateDimensions);
+
+		this.updateDimensions();
 	}
 
 	render() {
@@ -106,6 +125,8 @@ class Plan extends React.Component {
 								    onChange={this.handleEditorChange}
 								    setDefaultStyle="height: auto"
 								    placeholder={this.state.placeholder}
+								    defaultValue={this.state.text}
+								    height={this.state.height}
 								    setOptions={{
 										//buttonList: buttonList.basic
 										//buttonList: buttonList.formatting
@@ -114,13 +135,13 @@ class Plan extends React.Component {
 										  ["font", "fontSize", "formatBlock"],
 										  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
 										  ["removeFormat"],
-										  ["fontColor", "hiliteColor"],
-										  ["outdent", "indent"],
 										  ["align", "horizontalRule", "list", "table"],
 										  ["link", "image", "video"],
 										  //["fullScreen", "showBlocks", "codeView"],
 										  //["preview", "print"],
 										  //["save", "template"],
+										  ["fontColor", "hiliteColor"],
+										  ["outdent", "indent"],
 										  ["undo", "redo"],
 										]
 								    }}

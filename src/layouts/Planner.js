@@ -26,8 +26,9 @@ import { Route, Switch, Redirect, useLocation } from "react-router-dom";
 import Navigation from "components/Navbars/Navigation.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import settings from "utils/settings";
+import Extender from "components/FixedPlugin/Extender";
 
+import settings from "utils/settings";
 import routes from "routes.js";
 
 var ps;
@@ -87,7 +88,7 @@ function Planner(props) {
           })}
           <Redirect from={process.env.REACT_APP_WEB_ROOT} to={process.env.REACT_APP_WEB_ROOT + "/home"} />
         </Switch>
-        <Footer fluid />
+        <Footer />
       </div>
       {/*
       <Settings

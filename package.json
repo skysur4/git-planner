@@ -29,8 +29,10 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
     "reactstrap": "8.9.0",
+    "signature_pad": "^4.0.0",
     "suneditor": "^2.41.3",
-    "suneditor-react": "^3.3.1"
+    "suneditor-react": "^3.3.1",
+    "tesseract.js": "^2.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

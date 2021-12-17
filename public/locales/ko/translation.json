@@ -2,11 +2,13 @@
 	"title": "깃플래너",
 	"search": "검색",
 	"calendar": "달력",
-	"agenda": "이벤트",
+	"scan": "훓어보기",
 
 	"sub-title": {
 		"dashboard":"1+1=?",
-		"plan":"끄적끄적",
+		"note":"타닥타닥",
+		"memo":"끄적끄적",
+		"plan":"계획하기",
 		"notification":"에에에엥",
 		"home":"대문",
 		"settings":"끼릭끼릭",
@@ -24,6 +26,11 @@
 		"call": "호출 "
 	},
 
+	"memo": {
+		"title": "끄적거려보자",
+		"resize-will-reset": "주의! 화면 사이즈가 변경되면 내용이 리셋됩니다."
+	},
+
 	"editor": {
 		"title": "에디터",
 		"placeholer": "무엇을 계획 중이신가요?",
@@ -38,6 +45,9 @@
 		"ko": "한국어",
 		"en": "영어",
 		"id": "인니",
+		"mode": "모드",
+		"advanced": "고급",
+		"simple": "간단",
 		"unsupported": "미지원"
 	}
 }

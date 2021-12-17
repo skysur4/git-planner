@@ -57,8 +57,12 @@ function Index() {
 	}
   }, []);
 
-  //전역 날짜 함수 설정
-  moment.locale(i18n.resolvedLanguage);
+  //전역 함수 설정
+  window.i18n = i18n;
+  window.t = t;
+  moment.updateLocale(i18n.resolvedLanguage, {week: {dow: 1, doy: 1,}});
+  window.moment = moment;
+
 
   //전역 알림 팝업 설정
   const notificationAlert = React.useRef();

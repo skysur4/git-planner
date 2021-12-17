@@ -101,7 +101,7 @@ span.theme.active{
   left: 0;
   top: 0;
   background-color: transparent;
-  border: 1px solid #E3E3E3;
+  border: 1px solid rgb(64, 128, 128);
   -webkit-transition: opacity 0.3s linear;
   -moz-transition: opacity 0.3s linear;
   -o-transition: opacity 0.3s linear;
@@ -135,6 +135,48 @@ span.theme.active{
 .form-check input[type="radio"]:disabled + .form-radio-sign {
   pointer-events: none; }
 
-.rbc-calendar i.now-ui-icons {
-	font-size: small;
+.extender {
+  width: 64px !important;
+  border-radius: 0 8px 8px 0 !important;
+  top: 95vh !important;
+  left: 259px !important;
 }
+
+/*
+** override now-ui-dashboard.css
+*/
+.footer {
+  padding: 1vh 0 !important;
+}
+
+.main-panel .content {
+	padding: 0 30px 15px !important;
+	min-height: calc(100vh - 163px) !important;
+	margin-top: -7.5vh;
+}
+
+.input-group .btn {
+    padding: 10px 15px !important;
+    margin: 0 5px;
+}
+
+/*
+** override react-big-calendar.css
+*/
+.rbc-calendar i.now-ui-icons {
+	font-size: medium;
+}
+.rbc-agenda-event-cell {
+	cursor: pointer;
+}
+
+.rbc-toolbar-xs {
+    flex-wrap: unset !important;
+    font-size: 10px !important;
+}
+
+.rbc-toolbar-xs button {
+    padding: 0.3rem;
+}
+
+canvas{ border: 1px solid black; }
